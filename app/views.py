@@ -32,3 +32,20 @@ def search_cafe_by_location():
         return jsonify(cafe=cafe.to_dict())
     else:
         return jsonify(error={"Not Found": "Sorry, no cafe listed at that location."})
+
+
+@views.route("/add", methods=["POST"])
+def add_new_cafes():
+    new_cafe = Cafe(name=request.form.get("name"),
+                    map_url=request.form.get("map_url"),
+                    img_url=request.form.get("img_url"),
+                    location=request.form.get("location"),
+                    seats=request.form.get("seats"),
+                    has_sockets=bool(request.form.get("has_sockets")),
+                    has_toilet=bool(request.form.get("has_toilet")),
+                    has_wifi=bool(request.form.get("has_wifi")),
+                    can_take_calls=bool(request.form.get("can_take_calls")),
+                    coffee_price=request.form.get("coffee_price"))
+    db.session.add(new_cafe)
+    db.session.commit()
+    return jsonify(response={"success": "Successfully added the new cafe."})

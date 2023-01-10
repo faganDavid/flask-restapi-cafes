@@ -2,13 +2,13 @@ from flask import Flask
 from config import SECRET_KEY, DATABASE_URI
 from flask_wtf.csrf import CSRFProtect
 
-csrf = CSRFProtect()
+# csrf = CSRFProtect()
 
 
 def create_app():
     """Initialize the core application"""
     app = Flask(__name__)
-    csrf.init_app(app)
+    # csrf.init_app(app)
 
     app.app_context().push()
     app.config['SECRET_KEY'] = SECRET_KEY
